@@ -1,5 +1,37 @@
 # Two Pointers — Revision Notes
 
+## Sub-Pattern Map
+
+```
+Two Pointers
+|
++-- 4A. Same Direction  (Writer + Reader)
+|   +-- Remove Duplicates     -> keep new unique, return l+1
+|   +-- Remove Element        -> keep nums[r] != val, return l
+|   +-- Move Zeroes           -> keep non-zero, fill 0s at end
+|
++-- 4B. Opposite Direction  (Left + Right converge)
+|   +-- Two Sum II            -> sorted, move toward target
+|   +-- Valid Palindrome      -> skip non-alnum, compare lower
+|   +-- Container Most Water  -> area = (r-l)*min(h[l],h[r]), move shorter
+|
++-- 4C. Fixed + Two Pointers
+|   +-- 3Sum                  -> sort, fix i, two-sum on rest, skip dups
+|
++-- 4D. Left/Right Max Boundaries
+    +-- Trapping Rain Water   -> water[i] = min(leftMax, rightMax) - h[i]
+                                 process side with smaller current boundary
+```
+
+### Same Direction vs Opposite Direction — Quick Rule
+
+```
+Filter / compress / keep elements in-place? -> Same Direction (Writer + Reader)
+Pair / sum / palindrome / both ends?        -> Opposite Direction
+Triplet?                                    -> Sort + Fix i + Opposite Direction
+Bars / water / boundaries?                 -> Opposite Direction + maxLeft/maxRight
+```
+
 ## 1) When do I know it is a Two Pointers problem?
 
 Use **Two Pointers** when two indices can move through the same array or string while maintaining a useful relationship.
@@ -1108,3 +1140,29 @@ r = right search
 ```
 
 Once the pointer roles and invariant are clear, the implementation becomes much easier.
+
+---
+
+# 21) Next Topics to Learn (Priority Order)
+
+| #  | Topic                 | Why It Matters for Product Companies              |
+|----|-----------------------|---------------------------------------------------|
+| 1  | Binary Search         | Every sorted-array / search-space problem         |
+| 2  | Monotonic Stack       | Next greater element, histogram, stock prices     |
+| 3  | Fast & Slow Pointers  | Linked list cycle, find middle of list            |
+| 4  | Merge Intervals       | Meeting rooms, calendar, overlap detection        |
+| 5  | Backtracking          | Subsets, permutations, combinations, N-Queens     |
+| 6  | BFS / DFS on Graphs   | Islands, connected components, shortest path      |
+| 7  | Dynamic Programming   | Knapsack, LCS, LIS, coin change                   |
+| 8  | Heap / Priority Queue | K-th largest, top K elements, merge K sorted lists|
+| 9  | Trie                  | Autocomplete, word search, prefix matching        |
+
+## Patterns Completed So Far
+
+```
+Prefix Sum         -> Complete (1A Basic + 1B Hash Map)
+Hash Table         -> Complete (2A through 2G all sub-patterns)
+Fixed Sliding Window   -> Complete (5 sub-patterns)
+Variable Sliding Window -> Complete (5 sub-patterns)
+Two Pointers       -> Complete (4 families)
+```

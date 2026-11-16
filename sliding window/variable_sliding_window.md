@@ -1,4 +1,43 @@
-# Variable Sliding Window --- Revision Notes
+# Variable Sliding Window — Revision Notes
+
+## Sub-Pattern Map
+
+```
+Variable Sliding Window  (window size grows and shrinks)
+|
++-- No Duplicates (Set)
+|   +-- window must have all unique elements
+|   +-- State: set
+|   +-- Shrink: while arr[r] in seen
+|
++-- At Most K Distinct (Freq Map)
+|   +-- window can have at most k different values
+|   +-- State: freq map
+|   +-- Shrink: while len(freq) > k
+|
++-- Character Replacement (Freq + maxFreq)
+|   +-- allow k replacements to make all chars same
+|   +-- Formula: (window_len - maxFreq) > k means too many replacements
+|   +-- State: freq map + maxFreq
+|   +-- Shrink: while (r-l+1) - maxFreq > k
+|
++-- Minimum Sum (Running Sum)
+|   +-- find shortest subarray with sum >= target
+|   +-- State: running sum
+|   +-- Shrink (when VALID): while windowSum >= target
+|
++-- Minimum Window Substring (Need + Window + have)
+    +-- find shortest window containing all target chars
+    +-- State: need map + window map + have counter
+    +-- Shrink (when VALID): while have == needCount
+```
+
+### Longest vs Shortest — Key difference
+
+```
+Longest valid window:  shrink when INVALID  -> ans = max(ans, r-l+1)
+Shortest valid window: shrink when VALID    -> ans = min(ans, r-l+1) INSIDE while
+```
 
 ## 1) When do I know it is a **variable sliding window** problem?
 
@@ -449,3 +488,23 @@ You should be comfortable with:
 -   Using set, frequency map and running sum
 -   Maintaining `have` and `needCount`
 -   Choosing longest vs minimum window logic
+
+---
+
+## 13) Two Pointers vs Variable Sliding Window
+
+| Feature          | Two Pointers (Opposite)       | Variable Sliding Window       |
+|------------------|-------------------------------|-------------------------------|
+| Pointers start   | Both ends (l=0, r=n-1)        | Both at start (l=0, r=0)      |
+| Direction        | Converge inward               | Expand right, shrink left     |
+| Array sorted?    | Usually yes                   | Not required                  |
+| Use case         | Pair/sum, palindrome, water   | Subarray/substring conditions |
+| Key condition    | Compare arr[l] and arr[r]     | Window state satisfies/breaks |
+| Examples         | Two Sum II, 3Sum, Palindrome  | Longest Without Repeat, Min Window |
+
+Rule of thumb:
+
+```
+Pair / both-ends comparison / sorted array -> Two Pointers
+Subarray / substring / window condition   -> Sliding Window
+```

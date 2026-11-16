@@ -1,5 +1,30 @@
 # Prefix Sum — Revision Notes
 
+## Sub-Pattern Map
+
+```
+Prefix Sum
+|
++-- 1A. Basic Prefix Sum
+|   +-- Range Sum Query          -> p[r+1] - p[l]
+|   +-- Find Pivot Index         -> right = total - left - nums[i]
+|   +-- Difference Array         -> +1 at start, -1 at end, running sum
+|
++-- 1B. Prefix Sum + Hash Map
+    +-- Subarray Sum == K        -> freq map, look for current_sum - k
+    +-- Subarray Divisible by K  -> freq map, same remainder
+    +-- Continuous Subarray Sum  -> first-index map, same remainder, len >= 2
+    +-- Contiguous Array         -> first-index map, 0->-1, 1->+1, same prefix
+```
+
+### How to choose: freq map vs first-index map?
+
+```
+COUNT subarrays    -> freq map   (store frequency)
+LONGEST subarray   -> first-index map (store earliest index, never overwrite)
+TRUE/FALSE exists  -> first-index map (check index distance)
+```
+
 ## 1. Prefix Sum Basics
 
 Prefix Sum stores the cumulative sum up to each position.
@@ -218,6 +243,15 @@ Because the required year is the earliest year with the maximum population.
 ---
 
 # Prefix Sum + Hash Map
+
+## Decision Table
+
+| Problem                   | Map Key      | Map Value   | Initialize | Look Up           |
+|---------------------------|--------------|-------------|------------|-------------------|
+| Subarray Sum == K         | prefix_sum   | frequency   | `{0: 1}`   | `current_sum - k` |
+| Subarray Divisible by K   | remainder    | frequency   | `{0: 1}`   | `current_sum % k` |
+| Continuous Subarray Sum   | remainder    | first index | `{0: -1}`  | `current_sum % k` |
+| Contiguous Array (0s, 1s) | balance sum  | first index | `{0: -1}`  | current balance   |
 
 ## 5. Subarray Sum Equals K
 

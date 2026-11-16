@@ -1,5 +1,47 @@
 # Hash Tables — Revision Notes
 
+## Sub-Pattern Map
+
+```
+Hash Table
+|
++-- 2A. Frequency / Counting
+|   +-- Bottleneck (min of ratios)        -> Maximum Number of Balloons
+|   +-- Pair Counting                     -> Number of Good Pairs
+|   +-- Two-Pass (count then find)        -> First Unique Character
+|   +-- Consumption (decrement available) -> Ransom Note
+|
++-- 2B. Duplicate Detection / Existence
+|   +-- Has duplicate?          -> set
+|   +-- Missing numbers?        -> set vs expected range
+|
++-- 2C. Last Seen / Index Mapping
+|   +-- Distance between equal  -> dict: value -> last index
+|
++-- 2D. Complement / Pair Lookup
+|   +-- Two Sum style           -> needed = target - current
+|
++-- 2E. Bidirectional Mapping
+|   +-- Isomorphic / Pattern    -> two maps, A->B and B->A
+|
++-- 2F. Grouping / Canonical Key
+|   +-- Anagrams                -> tuple(sorted(word))
+|   +-- Shifted strings         -> tuple of char differences % 26
+|
++-- 2G. Consumption / Remaining Frequency
+|   +-- Can we build X from Y?  -> build freq, decrement
+|
++-- 2H. Prefix + Hash Map
+    +-- Subarray/state problems  -> covered in Prefix Sum notes
+```
+
+### Set vs Dictionary — Quick Rule
+
+```
+Set   -> only need existence (have I seen this?)
+Dict  -> need count / index / mapping / group / state
+```
+
 ## 1) When should I think about Hash Tables?
 
 Think **Hash Table / Hash Map / Hash Set** when the problem needs fast lookup or needs to remember something about values seen earlier.
@@ -1703,3 +1745,31 @@ Before coding, ask:
 ```
 
 If another pattern is required, identify it instead of forcing the problem into a pure Hash Table solution.
+
+---
+
+# 34) FAANG Interview Tips for Hash Tables
+
+```
+1. Always state what your key and value represent before coding.
+   Example: "I'll use a dict mapping value -> index"
+
+2. State O(n) time and O(n) space before writing code.
+
+3. Always check: do I need set (existence) or dict (count/index)?
+
+4. When using a frequency map, always use:
+   freq[x] = freq.get(x, 0) + 1
+   Never freq[x] = 1 (resets the count).
+
+5. When comparing two dicts (Anagram problems), delete zero-count keys
+   so the comparison works correctly.
+
+6. For bidirectional mapping, always check BOTH directions before assigning.
+
+7. Edge cases to mention:
+   - Empty array/string
+   - Single character strings (Isomorphic, Word Pattern)
+   - All elements the same
+   - k = 0 (for consecutive sequence type problems)
+```

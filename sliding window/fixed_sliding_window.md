@@ -1,5 +1,42 @@
 # Fixed Sliding Window — Revision Notes
 
+## Sub-Pattern Map
+
+```
+Fixed Sliding Window  (window size = k, constant)
+|
++-- Window Sum / Average
+|   +-- max sum, min sum, max average of size k
+|   +-- State: window_sum
+|
++-- Window Count
+|   +-- count elements satisfying a condition inside the window
+|   +-- State: count
+|
++-- Window Center Output
+|   +-- result belongs to the CENTER of the window, not the start
+|   +-- window size = 2*k + 1, center = r - k
+|   +-- State: window_sum
+|
++-- Distinct Window (Freq Map + len check)
+|   +-- all elements in window must be unique
+|   +-- Condition: len(freq) == k
+|   +-- State: window_sum + freq map
+|
++-- Frequency Map Equality (Anagram Match)
+    +-- current window must match target pattern exactly
+    +-- Condition: window == need
+    +-- State: need map + window map
+    +-- Starting index formula: start = r - k + 1
+```
+
+### Fixed vs Variable — Quick Rule
+
+```
+Window size given as k (constant)? -> Fixed Sliding Window
+Longest / shortest / at most k?   -> Variable Sliding Window
+```
+
 ## 1) When do I know it is a **fixed sliding window** problem?
 
 Use **fixed sliding window** when:
